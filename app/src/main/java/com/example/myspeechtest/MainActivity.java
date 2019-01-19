@@ -6,9 +6,11 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.text.Html;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
@@ -78,7 +80,13 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
                     tts.setLanguage(Locale.GERMAN);
                     // speak out
                     String output = answer(input);
-                    txtSpeechOutput.setText(output);
+                    String coloredOutput = color(output);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        txtSpeechOutput.setText(Html.fromHtml(coloredOutput,  Html.FROM_HTML_MODE_LEGACY), TextView.BufferType.SPANNABLE);
+                    } else {
+                        txtSpeechOutput.setText(Html.fromHtml(coloredOutput), TextView.BufferType.SPANNABLE);
+                    }
+//                    txtSpeechOutput.setText(output);
                     tts.speak(output, TextToSpeech.QUEUE_FLUSH, null);
                 }
                 break;
@@ -89,10 +97,41 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 
 // === Text Logic ===
     private String answer(String input) {
-        String answer = "Ich " + input;
-        answer = answer.replaceAll("mir", "dir");
+        String answer = input;
+        if (answer.startsWith("ich")) {
+            answer = answer.replaceAll("ich", "Du");
+        } else {
+            answer = "Ich " + answer;
+        }
+        answer = answer.replaceAll("mir", "DIR");
+        answer = answer.replaceAll("mich", "DICH");
+        answer = answer.replaceAll("mein", "DEIN");  // inkl. meine, meines, meiner, meinem, meinen
+        answer = answer.replaceAll("dir", "MIR");
+        answer = answer.replaceAll("dich", "MICH");
+        answer = answer.replaceAll("dein", "MEIN");  // inkl. deine, deines, deiner, deinem, deinen
+
+        answer = answer.replaceAll("MIR", "mir");
+        answer = answer.replaceAll("MICH", "mich");
+        answer = answer.replaceAll("MEIN", "mein");
+        answer = answer.replaceAll("DIR", "dir");
+        answer = answer.replaceAll("DICH", "dich");
+        answer = answer.replaceAll("DEIN", "dein");
         return answer;
     }
+
+    private String color(String input) {
+        String answer = input;
+        answer = answer.replaceAll("Ich", "<font color='red'>Ich</font>");
+        answer = answer.replaceAll("mich", "<font color='red'>mich</font>");
+        answer = answer.replaceAll("mir", "<font color='red'>mir</font>");
+        answer = answer.replaceAll("mein", "<font color='red'>mein</font>");
+        answer = answer.replaceAll("Du", "<font color='red'>Du</font>");
+        answer = answer.replaceAll("dir", "<font color='red'>dir</font>");
+        answer = answer.replaceAll("dich", "<font color='red'>dich</font>");
+        answer = answer.replaceAll("dein", "<font color='red'>dein</font>");
+        return answer;
+    }
+
 // === Text Logic ===
 
     @Override
