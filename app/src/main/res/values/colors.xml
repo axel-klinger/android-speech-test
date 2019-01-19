@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
+    <color name="light_green">#aaffaa</color>
+    <color name="light_yellow">#ffffaa</color>
     <color name="bg_gradient_start">#31244e</color>
     <color name="bg_gradient_end">#6b394c</color>
     <color name="colorPrimary">#008577</color>
