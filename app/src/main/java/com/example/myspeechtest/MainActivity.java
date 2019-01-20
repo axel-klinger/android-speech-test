@@ -20,6 +20,8 @@ import android.util.Log;
 
 public class MainActivity extends Activity implements TextToSpeech.OnInitListener {
 
+    private Eliza eliza;
+
     private TextToSpeech tts;
     private TextView txtSpeechInput;
     private TextView txtSpeechOutput;
@@ -30,6 +32,8 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        eliza = new Eliza();
 
         tts = new TextToSpeech(this, this);
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
@@ -79,8 +83,10 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
                     txtSpeechInput.setText(input);
                     tts.setLanguage(Locale.GERMAN);
                     // speak out
-                    String output = Bot.respondTo(input);
-                    String coloredOutput = Bot.colorize(output);
+                    String output = eliza.respondTo(input).toLowerCase();
+//                    String output = Bot.respondTo(input);
+                    String coloredOutput = output;
+//                    String coloredOutput = Bot.colorize(output);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         txtSpeechOutput.setText(Html.fromHtml(coloredOutput,  Html.FROM_HTML_MODE_LEGACY), TextView.BufferType.SPANNABLE);
                     } else {
