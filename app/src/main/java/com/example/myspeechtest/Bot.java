@@ -1,11 +1,13 @@
 package com.example.myspeechtest;
 
+import android.text.TextUtils;
+
 public class Bot {
 
     public static String respondTo(String input) {
 
         String inputType = "AUSSAGE";
-        String answer = input;
+        String answer = input.toLowerCase();
         if (input.startsWith("wann") || input.startsWith("wo") || input.startsWith("warum") || input.startsWith("wie")) {
             inputType = "FRAGE";
             // FRAGE -> ANTWORT (random)
@@ -21,27 +23,57 @@ public class Bot {
                 answer = "irgendwie";
             }
         } else {
-            if (answer.startsWith("ich")) {
-                answer = answer.replaceAll("[^a-z]?ich", "Du");
-            } else {
+            if (!answer.startsWith("ich")) {
                 answer = "Ich " + answer;
             }
-            answer = answer.replaceAll("[Mm]ir", "DIR");
-            answer = answer.replaceAll("[Mm]ich", "DICH");
-            answer = answer.replaceAll("[Mm]ein", "DEIN");  // inkl. meine, meines, meiner, meinem, meinen
-            answer = answer.replaceAll("[Dd]ir", "MIR");
-            answer = answer.replaceAll("[Dd]ich", "MICH");
-            answer = answer.replaceAll("[Dd]ein", "MEIN");  // inkl. deine, deines, deiner, deinem, deinen
-
-            answer = answer.replaceAll("MIR", "mir");
-            answer = answer.replaceAll("MICH", "mich");
-            answer = answer.replaceAll("MEIN", "mein");
-            answer = answer.replaceAll("DIR", "dir");
-            answer = answer.replaceAll("DICH", "dich");
-            answer = answer.replaceAll("DEIN", "dein");
+            answer = replaceWords(answer);
         }
 
         return answer;
+    }
+
+    private static String[] WORDS_TO_REPLACE_DE = {
+            "bist","bin",
+            "warst","war",
+            "machst","mache",
+            "mach","mache",
+            "sagst","sage",
+            "sag","sage",
+            "erzählst","erzähle",
+            "erzähl","erzähle",
+            "gehst","gehe",
+            "geh","gehe",
+            "gibst","gebe",
+            "gib","gebe",
+            "du","ich",
+            "dein","mein",
+            "deine","meine",
+            "deines","meines",
+            "deiner","meiner",
+            "deinem","meinem",
+            "deinen","meinen",
+            "du hast","ich habe",
+            "du bist","ich bin",
+            "dich", "mich",
+            "dir", "mir"
+    };
+
+    private static String replaceWords(String input) {
+        String output = input;
+        String[] parts = output.split("\\s+");
+        for (int i = 0; i < WORDS_TO_REPLACE_DE.length / 2; i++) {
+            String first = WORDS_TO_REPLACE_DE[i * 2];
+            String second = WORDS_TO_REPLACE_DE[i * 2 + 1];
+            for (int j = 0; j < parts.length; ++j) {
+                if (parts[j].equals(first)) {
+                    parts[j] = second;
+                } else if (parts[j].equals(second)) {
+                    parts[j] = first;
+                }
+            }
+        }
+        output = TextUtils.join(" ", parts);
+        return output;
     }
 
     public static String colorize(String input) {
