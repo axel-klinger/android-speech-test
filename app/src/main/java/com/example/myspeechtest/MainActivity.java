@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
                     tts.setLanguage(Locale.GERMAN);
                     // speak out
                     String output = eliza.respondTo(input).toLowerCase();
-//                    String output = Bot.respondTo(input);
+//                    String output = Tricia.respondTo(input);
                     String coloredOutput = output;
 //                    String coloredOutput = Bot.colorize(output);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

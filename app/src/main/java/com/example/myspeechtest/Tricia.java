@@ -2,7 +2,7 @@ package com.example.myspeechtest;
 
 import android.text.TextUtils;
 
-public class Bot {
+public class Tricia {
 
     public static String respondTo(String input) {
 
