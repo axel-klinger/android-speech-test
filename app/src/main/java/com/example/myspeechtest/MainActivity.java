@@ -14,6 +14,7 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
@@ -21,6 +22,8 @@ import android.util.Log;
 public class MainActivity extends Activity implements TextToSpeech.OnInitListener {
 
     private Eliza eliza;
+    private Tricia tricia;
+    private Bot activeBot;
 
     private TextToSpeech tts;
     private TextView txtSpeechInput;
@@ -34,6 +37,8 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
         setContentView(R.layout.activity_main);
 
         eliza = new Eliza();
+        tricia = new Tricia();
+        activeBot = eliza;
 
         tts = new TextToSpeech(this, this);
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
@@ -83,7 +88,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
                     txtSpeechInput.setText(input);
                     tts.setLanguage(Locale.GERMAN);
                     // speak out
-                    String output = eliza.respondTo(input).toLowerCase();
+                    String output = activeBot.respondTo(input).toLowerCase();
 //                    String output = Tricia.respondTo(input);
                     String coloredOutput = output;
 //                    String coloredOutput = Bot.colorize(output);
@@ -127,6 +132,19 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
             }
         } else {
             Log.e("TTS", "Initilization Failed!");
+        }
+    }
+
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.eliza:
+                activeBot = eliza;
+                break;
+            case R.id.tricia:
+                activeBot = tricia;
+                break;
         }
     }
 }

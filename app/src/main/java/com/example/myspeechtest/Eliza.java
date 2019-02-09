@@ -2,7 +2,7 @@ package com.example.myspeechtest;
 
 import android.text.TextUtils;
 
-public class Eliza {
+public class Eliza implements Bot {
 
 
     private static final String[] CONVERSATION_KEYWORDS_DE = {
@@ -118,6 +118,10 @@ public class Eliza {
         if (null == input) {
             input = "";
         }
+        if (input.toLowerCase().equals("wer bist du")) {
+            return "ich bin Eliza";
+        }
+
         String result = "";
 
         input = " " + input.toUpperCase().replace("\'", "") + " ";

@@ -52,6 +52,7 @@
             android:background="@null"
             android:src="@drawable/ico_mic" />
 
+<!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,6 +61,30 @@
             android:textColor="@color/white"
             android:textSize="15dp"
             android:textStyle="normal" />
+-->
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/eliza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="Eliza" />
+
+            <RadioButton
+                android:id="@+id/tricia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Tricia" />
+        </RadioGroup>
+
     </LinearLayout>
+
 
 </RelativeLayout>

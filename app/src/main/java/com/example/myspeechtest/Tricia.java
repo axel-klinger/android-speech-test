@@ -2,13 +2,19 @@ package com.example.myspeechtest;
 
 import android.text.TextUtils;
 
-public class Tricia {
+public class Tricia implements Bot {
 
-    public static String respondTo(String input) {
+    public Tricia () {
+
+    }
+
+    public String respondTo(String input) {
 
         String inputType = "AUSSAGE";
         String answer = input.toLowerCase();
-        if (input.startsWith("wann") || input.startsWith("wo") || input.startsWith("warum") || input.startsWith("wie")) {
+        if (input.toLowerCase().equals("wer bist du")) {
+            answer = "ich bin Tricia";
+        } else if (input.startsWith("wann") || input.startsWith("wo") || input.startsWith("warum") || input.startsWith("wie")) {
             inputType = "FRAGE";
             // FRAGE -> ANTWORT (random)
             if (input.startsWith("wann")) {
