@@ -10,13 +10,17 @@ public class Tricia implements Bot {
 
     public String respondTo(String input) {
 
-        String inputType = "AUSSAGE";
-        String answer = input.toLowerCase();
         if (input.toLowerCase().equals("wer bist du")) {
-            answer = "ich bin Tricia";
-        } else if (input.startsWith("wann") || input.startsWith("wo") || input.startsWith("warum") || input.startsWith("wie")) {
-            inputType = "FRAGE";
-            // FRAGE -> ANTWORT (random)
+            return "ich bin Tricia";
+        }
+
+        if (input.toLowerCase().equals("was kannst du")) {
+            return "ich kann sätze umdrehen";
+        }
+
+        String answer = "";
+
+        if (input.startsWith("wann") || input.startsWith("wo") || input.startsWith("warum") || input.startsWith("wie")) {
             if (input.startsWith("wann")) {
                 answer = "morgen";
             } else if (input.startsWith("wohin")) {

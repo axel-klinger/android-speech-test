@@ -115,11 +115,13 @@ public class Eliza implements Bot {
     }
 
     public String respondTo(String input) {
-        if (null == input) {
-            input = "";
-        }
+
         if (input.toLowerCase().equals("wer bist du")) {
             return "ich bin Eliza";
+        }
+
+        if (input.toLowerCase().equals("was kannst du")) {
+            return "ich kann fragen stellen";
         }
 
         String result = "";

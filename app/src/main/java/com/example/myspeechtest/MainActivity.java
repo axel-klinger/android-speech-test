@@ -21,6 +21,7 @@ import android.util.Log;
 
 public class MainActivity extends Activity implements TextToSpeech.OnInitListener {
 
+    private Ada ada;
     private Eliza eliza;
     private Tricia tricia;
     private Bot activeBot;
@@ -36,6 +37,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ada = new Ada();
         eliza = new Eliza();
         tricia = new Tricia();
         activeBot = eliza;
@@ -144,6 +146,9 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
                 break;
             case R.id.tricia:
                 activeBot = tricia;
+                break;
+            case R.id.ada:
+                activeBot = ada;
                 break;
         }
     }
