@@ -33,8 +33,8 @@ public class Tricia implements Bot {
                 answer = "irgendwie";
             }
         } else {
-            if (!answer.startsWith("ich")) {
-                answer = "Ich " + answer;
+            if (!input.startsWith("ich")) {
+                answer = "Ich " + input;
             }
             answer = replaceWords(answer);
         }
