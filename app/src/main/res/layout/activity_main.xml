@@ -79,6 +79,35 @@
                 android:onClick="onRadioButtonClicked"
                 android:text="Ada" />
 
+            <RadioButton
+                android:id="@+id/researchBot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="RB" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/german"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="onLanguageSelect"
+                android:text="DE" />
+
+            <RadioButton
+                android:id="@+id/english"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onLanguageSelect"
+                android:text="EN" />
+
         </RadioGroup>
 
     </LinearLayout>

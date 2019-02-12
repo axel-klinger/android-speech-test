@@ -24,7 +24,10 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
     private Ada ada;
     private Eliza eliza;
     private Tricia tricia;
+    private ResearchBot researchBot;
     private Bot activeBot;
+
+    private Locale activeLanguage;
 
     private TextToSpeech tts;
     private TextView txtSpeechInput;
@@ -40,7 +43,10 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
         ada = new Ada();
         eliza = new Eliza();
         tricia = new Tricia();
+        researchBot = new ResearchBot();
         activeBot = eliza;
+
+        activeLanguage = Locale.GERMAN;
 
         tts = new TextToSpeech(this, this);
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
@@ -88,7 +94,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String input = result.get(0);
                     txtSpeechInput.setText(input);
-                    tts.setLanguage(Locale.GERMAN);
+                    tts.setLanguage(activeLanguage);
                     // speak out
                     String output = activeBot.respondTo(input).toLowerCase();
 //                    String output = Tricia.respondTo(input);
@@ -128,7 +134,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            int result = tts.setLanguage(Locale.US);
+            int result = tts.setLanguage(Locale.GERMAN);
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "This Language is not supported");
             }
@@ -149,6 +155,22 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
                 break;
             case R.id.ada:
                 activeBot = ada;
+                break;
+            case R.id.researchBot:
+                activeBot = researchBot;
+                break;
+        }
+    }
+
+    public void onLanguageSelect(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.english:
+                activeLanguage = Locale.US;
+                break;
+            case R.id.german:
+                activeLanguage = Locale.GERMAN;
                 break;
         }
     }
